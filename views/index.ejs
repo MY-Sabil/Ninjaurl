@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>NinjaUrl</title>
+</head>
+<style>
+  body {
+    font-family: 'Abel', sans-serif;
+    background-color: #343A40;
+  }
+  .container{
+    margin-top: 50px;
+  }
+  .table{
+    text-align: center;
+    align-items: center;
+  }
+  .mainTitle {
+    color: azure;
+  }
+  #fullUrl{
+    background-color: #343A40;
+    color: azure;
+  }
+  .aaa{
+    color: azure;
+    font-weight: 400;
+  }
+  .ooo{
+    color: aquamarine;
+    text-decoration: none;
+  }
+  a :hover{
+    color: aqua;
+  }
+</style>
+<body>
+  <div class="container">
+    <h1 class="mainTitle">NinjaUrl</h1>
+    <form action="/shortUrls" method="POST" class="my-4 form-inline">
+      <label for="fullUrl" class="sr-only">Url</label>
+      <input required placeholder="Website Url" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
+      <button class="btn btn-outline-success" type="submit">Shrink</button>
+    </form>
+    
+    <table class="table table-striped table-responsive table-dark table-hover">
+      <thead>
+        <tr class="thead">
+          <th class="aaa">Full URL</th>
+          <th class="aaa">Short URL</th>
+          <th class="aaa">Clicks</th>
+          <th class="aaa">Copy Url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td><a href="<%= shortUrl.full %>" target="_blank" class="ooo"><%= shortUrl.full %></a></td>
+            <td><a id="urlShort" href="<%= shortUrl.short %>" target="_blank" class="ooo">https://localhost:5000/<%= shortUrl.short %></a></td>
+            <td><%= shortUrl.clicks %></td>
+            <td><button class="btn btn-outline-light" type="submit" id="copy" onclick="copyFunction()">Copy</button></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+<script>
+  function copyFunction(){
+    var copyText = document.getElementById("urlShort");
+    var text = copyText.textContent;
+    navigator.clipboard.writeText(text);
+    alert("Url copied.");
+  }
+</script>
+</html>
